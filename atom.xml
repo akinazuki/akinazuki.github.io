@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>奈月亭</title>
+  
+  
+  <link href="http://nazuki.moe/atom.xml" rel="self"/>
+  
+  <link href="http://nazuki.moe/"/>
+  <updated>2022-04-08T00:38:02.058Z</updated>
+  <id>http://nazuki.moe/</id>
+  
+  <author>
+    <name>Aki Nazuki</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://nazuki.moe/hello-world/"/>
+    <id>http://nazuki.moe/hello-world/</id>
+    <published>2022-04-08T00:38:02.058Z</published>
+    <updated>2022-04-08T00:38:02.058Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>

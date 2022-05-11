@@ -17,7 +17,7 @@
 <p><img src="https://s2.loli.net/2022/05/12/feCIWNdhlBVJXML.jpg" alt="request-struct"></p>
 <p>根据函数栈追踪, 可以分析出比较核心的逻辑都在 <code>sandbox.bundle.js</code> 内</p>
 <p>看起来是用了 WebAssemble 来解析网页录音, 在点击开始录音后会开始录制当前 TAB 的音频</p>
-<p>当录音完成后就会将音频传到 WASM 暴露的函数 <code>l().ExtraQueryFP()</code> 中</p>
+<p>当录音完成后就会将音频传到 WASM 暴露的函数 <code>l().ExtractQueryFP(...)</code> 中</p>
 <p><img src="https://s2.loli.net/2022/05/12/Ljm8hg5Kztv9VHW.jpg" alt="parse-buffer"></p>
 <p>WASM 层处理完成后就会将返回的 ArrayBuffer 封装成一个 Base64 串, 最后会将这个 Base64 串提交给 API</p>
 <p><img src="https://s2.loli.net/2022/05/12/TEWq917khpOKZPd.jpg" alt="request-code"></p>

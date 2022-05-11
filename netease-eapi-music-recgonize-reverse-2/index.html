@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="网易云音乐听歌识曲 API 逆向 (二)"><meta name="keywords" content=""><meta name="author" content="Aki Nazuki"><meta name="copyright" content="Aki Nazuki"><title>网易云音乐听歌识曲 API 逆向 (二) | 奈月亭</title><link rel="shortcut icon" href="/favicon.png"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="奈月亭" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars.githubusercontent.com/u/43605695"></div><div class="author-info__name text-center">Aki Nazuki</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">3</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">奈月亭</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/links">Links</a><a class="site-page" href="/about">About</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">网易云音乐听歌识曲 API 逆向 (二)</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-05-12</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/netease-eapi-music-recgonize-reverse-2/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="netease-eapi-music-recgonize-reverse-2/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>前两天看到网易云音乐发布了一个网页上做音乐识别的 <a target="_blank" rel="noopener" href="https://juejin.cn/post/7094083239702659109">Chrome 插件</a></p>
+<p><img src="https://s2.loli.net/2022/05/12/sdvE3LHGx19owOY.png" alt="netease-chrome-recgonize"></p>
+<p>于是立即下载了一份来研究</p>
+<p><img src="https://s2.loli.net/2022/05/12/XwcgmIPYsuLpCBf.png" alt="source"></p>
+<p>Chrome 插件的请求方式和结构和客户端几乎一模一样</p>
+<p><img src="https://s2.loli.net/2022/05/12/feCIWNdhlBVJXML.jpg" alt="request-struct"></p>
+<p>根据函数栈追踪, 可以分析出比较核心的逻辑都在 <code>sandbox.bundle.js</code> 内</p>
+<p>看起来是用了 WebAssemble 来解析网页录音, 在点击开始录音后会开始录制当前 TAB 的音频</p>
+<p>当录音完成后就会将音频传到 WASM 暴露的函数 <code>l().ExtraQueryFP()</code> 中</p>
+<p><img src="https://s2.loli.net/2022/05/12/Ljm8hg5Kztv9VHW.jpg" alt="parse-buffer"></p>
+<p>WASM 层处理完成后就会将返回的 ArrayBuffer 封装成一个 Base64 串, 最后会将这个 Base64 串提交给 API</p>
+<p><img src="https://s2.loli.net/2022/05/12/TEWq917khpOKZPd.jpg" alt="request-code"></p>
+<hr>
+<p>虽然还是不太清楚 WASM 层内部是如何处理传入的音频数据, 但是已经可以将它的代码抽出来作为一个类库了</p>
+<p>基于插件代码制作了一份 DEMO, 可以参考 <a target="_blank" rel="noopener" href="https://github.com/akinazuki/NeteaseCloudMusic-Audio-Recgonize">NeteaseCloudMusic-Audio-Recgonize</a></p>
+<p><code>rec.json</code> 内是封装成 JSON 的录音 ArrayBuffer</p>
+<p>运行后会在 Chrome Console 打印出音频指纹的 Base64 串</p>
+<p><img src="https://s2.loli.net/2022/05/12/ZuSIAYHMtlxgpsk.png" alt="console"></p>
+<p><img src="https://s2.loli.net/2022/05/12/UmwNMRthrfbzQiJ.jpg" alt="postman-test"></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Aki Nazuki</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://nazuki.moe/netease-eapi-music-recgonize-reverse-2/">http://nazuki.moe/netease-eapi-music-recgonize-reverse-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="next-post pull-right"><a href="/netease-eapi-music-recgonize-reverse-1/"><span>网易云音乐听歌识曲 API 逆向 (一)</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://nazuki.moe/netease-eapi-music-recgonize-reverse-2/';
+  this.page.identifier = 'netease-eapi-music-recgonize-reverse-2/';
+  this.page.title = '网易云音乐听歌识曲 API 逆向 (二)';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + 'nazukis-blog' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://nazukis-blog.disqus.com/count.js" async></script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2022 By Aki Nazuki</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>

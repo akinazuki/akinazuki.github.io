@@ -6,7 +6,7 @@
   <link href="http://nazuki.moe/atom.xml" rel="self"/>
   
   <link href="http://nazuki.moe/"/>
-  <updated>2022-05-06T00:49:54.161Z</updated>
+  <updated>2022-05-11T16:32:42.636Z</updated>
   <id>http://nazuki.moe/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>网易云音乐听歌识曲 API 逆向 (二)</title>
+    <link href="http://nazuki.moe/netease-eapi-music-recgonize-reverse-2/"/>
+    <id>http://nazuki.moe/netease-eapi-music-recgonize-reverse-2/</id>
+    <published>2022-05-11T16:00:00.000Z</published>
+    <updated>2022-05-11T16:32:42.636Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>网易云音乐听歌识曲 API 逆向 (一)</title>

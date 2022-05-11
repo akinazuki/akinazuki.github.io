@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>网易云音乐听歌识曲 API 逆向 (二)</title>
+      <link href="/netease-eapi-music-recgonize-reverse-2/"/>
+      <url>/netease-eapi-music-recgonize-reverse-2/</url>
+      
+        <content type="html"><![CDATA[<p>前两天看到网易云音乐发布了一个网页上做音乐识别的 <a href="https://juejin.cn/post/7094083239702659109">Chrome 插件</a></p><p><img src="https://s2.loli.net/2022/05/12/sdvE3LHGx19owOY.png" alt="netease-chrome-recgonize"></p><p>于是立即下载了一份来研究</p><p><img src="https://s2.loli.net/2022/05/12/XwcgmIPYsuLpCBf.png" alt="source"></p><p>Chrome 插件的请求方式和结构和客户端几乎一模一样</p><p><img src="https://s2.loli.net/2022/05/12/feCIWNdhlBVJXML.jpg" alt="request-struct"></p><p>根据函数栈追踪, 可以分析出比较核心的逻辑都在 <code>sandbox.bundle.js</code> 内</p><p>看起来是用了 WebAssemble 来解析网页录音, 在点击开始录音后会开始录制当前 TAB 的音频</p><p>当录音完成后就会将音频传到 WASM 暴露的函数 <code>l().ExtraQueryFP()</code> 中</p><p><img src="https://s2.loli.net/2022/05/12/Ljm8hg5Kztv9VHW.jpg" alt="parse-buffer"></p><p>WASM 层处理完成后就会将返回的 ArrayBuffer 封装成一个 Base64 串, 最后会将这个 Base64 串提交给 API</p><p><img src="https://s2.loli.net/2022/05/12/TEWq917khpOKZPd.jpg" alt="request-code"></p><hr><p>虽然还是不太清楚 WASM 层内部是如何处理传入的音频数据, 但是已经可以将它的代码抽出来作为一个类库了</p><p>基于插件代码制作了一份 DEMO, 可以参考 <a href="https://github.com/akinazuki/NeteaseCloudMusic-Audio-Recgonize">NeteaseCloudMusic-Audio-Recgonize</a></p><p><code>rec.json</code> 内是封装成 JSON 的录音 ArrayBuffer</p><p>运行后会在 Chrome Console 打印出音频指纹的 Base64 串</p><p><img src="https://s2.loli.net/2022/05/12/ZuSIAYHMtlxgpsk.png" alt="console"></p><p><img src="https://s2.loli.net/2022/05/12/UmwNMRthrfbzQiJ.jpg" alt="postman-test"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>网易云音乐听歌识曲 API 逆向 (一)</title>
       <link href="/netease-eapi-music-recgonize-reverse-1/"/>
       <url>/netease-eapi-music-recgonize-reverse-1/</url>

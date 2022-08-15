@@ -127,9 +127,9 @@ cdn:
     fontawesome: https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css
     # fontawesomeV5: https://use.fontawesome.com/releases/v5.3.1/css/all.css
   js:
-    anime: https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js
-    jquery: https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js
-    fancybox: https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js
+    anime: https://cdnjs.loli.net/ajax/libs/animejs/3.2.1/anime.min.js
+    jquery: https://cdnjs.loli.net/ajax/libs/jquery/3.6.0/jquery.min.js
+    fancybox: https://cdnjs.loli.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js
     velocity: https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js
     velocity-ui: https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js
 
@@ -211,9 +211,9 @@ addThis:
 # Comments System
 # ---------------
 disqus:
-  enable: false
-  #shortname:
-  #count:
+  enable: true
+  shortname: nazukis-blog
+  count: true
 
 # laibili:
 # enable: false
@@ -269,7 +269,7 @@ disqus:
 
 # Footer Settings
 # ---------------
-since: 2017
+since: 2015
 
 footer_custom_text: <a href="https://icp.gov.moe/?keyword=20229233" target="_blank">萌ICP备20229233号</a>
 

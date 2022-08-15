@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1062 1062">
+  <defs>
+    <style>
+      .cls-1{fill:#7bc0f7;filter:url(#filter);}.cls-2{fill:#4daaf6;filter:url(#filter);}.cls-3{fill:#2196f3;filter:url(#filter);}
+    </style>
+    <filter id="filter" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" in="SourceAlpha" />
+      <feGaussianBlur result="blur" stdDeviation="5.477" />
+      <feFlood result="flood" flood-opacity="0.33" />
+      <feComposite result="composite" operator="in" in2="blur" />
+      <feBlend result="blend" in="SourceGraphic" />
+    </filter>
+  </defs>
+    <g>
+      <path class="cls-1" d="M12.14,1049.85l646.4-387.22s119.81,18,226.34,46c94.47,24.8,177.12,59.91,177.12,59.91S1008,840.27,938.57,909c-78.28,77.48-173,153-173,153Z" />
+      <path class="cls-2" d="M12.14,1049.85,378.33,391.32S491.1,347,597.35,318c94.21-25.76,183.34-36.67,183.34-36.67S769.78,370.42,744,464.65c-29,106.23-73.34,219-73.34,219Z" />
+      <path class="cls-3" d="M12.14,1049.85,0,296.45s75.52-94.74,153-173C221.71,54,293.45,0,293.45,0s35.11,82.63,59.92,177.11c28,106.53,46,226.35,46,226.35Z" />
+    </g>
+</svg>

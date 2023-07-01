@@ -96,10 +96,10 @@ fireworks: false
 baidu_analytics:
 # Format: UA-xxxxxxxxx-x
 # Example: UA-123456789-0
-google_analytics:
+google_analytics: G-P6PHKT06YE
 # Format: G-xxxxxxxxx
 # Example: G-0A12345678
-google_analytics_MeasurementID:
+google_analytics_MeasurementID: G-P6PHKT06YE
 
 # Tencent_analytics ID
 tencent_analytics:

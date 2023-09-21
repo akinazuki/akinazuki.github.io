@@ -22,3 +22,4 @@ tags:
 [LinEvil’s Blog](https://linevil.net/)  
 [Canarypwn’s Blog](https://aaaab3n.moe/)
 [九叶的小窝](https://qwq.ro)
+[绯鞠的博客](https://loli.fj.cn)

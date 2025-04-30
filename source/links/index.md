@@ -23,3 +23,4 @@ tags:
 [Canarypwn’s Blog](https://aaaab3n.moe/)
 [九叶的小窝](https://qwq.ro)
 [绯鞠的博客](https://loli.fj.cn)
+[文々。新聞](https://ayaya.news)

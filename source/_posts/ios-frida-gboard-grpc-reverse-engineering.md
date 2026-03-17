@@ -4,8 +4,6 @@ date: 2026-03-17 00:00:00
 tags: reverse-engineering
 ---
 
-# iOS Frida 初尝试之分析 Gboard 搜索接口
-
 最近在折腾 Gboard（Google 键盘）的逆向，想看看它在用户搜索的时候到底和 Google 的服务器交换了些什么数据。一开始的想法是挂代理抓包，但 Surge 和 Reqable 都没能解出来——Gboard 走的是 HTTP/2 + gRPC，MITM 代理基本没法正常解析。最终通过 Frida hook BoringSSL 解密越狱 iPhone 上的 TLS 流量，逐层拆解 HTTP/2、gRPC 和 Protobuf，还原出了完整的搜索接口并用 grpcurl 复现了请求。
 
 <!-- more -->

@@ -194,21 +194,6 @@ i2c-hid-dev@a {
 
 看起来 muiBoard 表面那块木头底下贴的不是普通电容触摸，而是一片完整的 Wacom 数位板模组。难怪触摸和书写的体验跟普通智能家居面板完全不在一个级别（甚至魔改一下能当 OSU 手台？）。
 
-### `uart3` / `uart5` — 双 LED 矩阵
-
-stock overlay，但 mui 拿来分别驱动两块 LED 矩阵子板。在 rootfs 里翻 `mui_ui/config.py` 可以看到 MPM1 型号注册了两个 uart：
-
-```python
-self._display_width = 168
-self._display_height = 32
-self._dev_uart.append('/dev/ttyAMA5')
-self._dev_uart.append('/dev/ttyAMA3')
-...
-self._display_num = len(self._dev_uart)
-```
-
-`_display_num = len(_dev_uart)` 说明 uart 数量直接等于 display 数量，168×32 的"长条 LED 矩阵"实际上是横向拼接的两块独立子板，每块子板上有自己的 MCU，各占一条 UART。
-
 整套硬件定制全部走 RPi 标准的 overlay 机制——一个 Wacom dtbo + 两条 UART overlay 就搞定了。基础 dtb 跟官方完全一致，将来升级 RPi firmware 不会冲突。
 
 这其实是相当克制的工程做法，比某些厂商把整个 dts fork 出来自己魔改、然后永远停留在某个内核版本的做法漂亮多了。残念的还是只有上面那套残废的 APP……
